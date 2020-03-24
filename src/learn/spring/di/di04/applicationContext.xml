@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--注册动态工厂-->
+    <!--<bean id="factory" class="com.cn.factory.ServiceFactory"/>-->
+    <!--<bean id = "myService" factory-bean ="factory" factory-method="getSomeService"/>-->
+   <bean id="school"  class="learn.spring.di.di04.School">
+
+       <property name="name" value="Qinghua" />
+   </bean>
+    <!--自动注入 从容器中查找，当对象属性的属性名和id 名一致时 可以自动注入 autowire="byName"-->
+    <bean id="student" class="learn.spring.di.di04.Student" autowire="byName">
+       <property name="name" value="Tom" />
+       <property name="age"  value="18" />
+
+   </bean>
+</beans>

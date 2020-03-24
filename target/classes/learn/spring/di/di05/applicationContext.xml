@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+<!--SPEL-->
+    <bean id = "myPerson" class="learn.spring.di.di05.Person">
+        <property name="pname" value="Qiang" />
+        <property name="page" value="#{T(java.lang.Math).random()*50}"/>
+
+    </bean>
+    <bean id="student" class="learn.spring.di.di05.Student">
+       <property name="name" value="#{myPerson.pname}" />
+       <!--<property name="age"  value="#{myPerson.page > 25 ? 25:myPerson.page}" />-->
+        <property name="age"  value="#{myPerson.computeAge()}" />
+
+   </bean>
+</beans>

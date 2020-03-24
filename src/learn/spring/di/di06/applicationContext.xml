@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+    <bean id="student" class="learn.spring.di.di06.Student">
+       <property name="name" value="Tom" />
+       <property name="age"  value="18" />
+       <property name="school" >
+           <!--内部 bean-->
+           <bean  class="learn.spring.di.di06.School">
+
+               <property name="name" value="Qinghua" />
+           </bean>
+       </property>
+
+   </bean>
+</beans>

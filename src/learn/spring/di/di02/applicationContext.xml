@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--注册动态工厂-->
+    <!--<bean id="factory" class="com.cn.factory.ServiceFactory"/>-->
+    <!--<bean id = "myService" factory-bean ="factory" factory-method="getSomeService"/>-->
+   <bean id="school"  class="learn.spring.di.di02.School">
+
+       <property name="name" value="Qinghua" />
+   </bean>
+    <bean id="student" class="learn.spring.di.di02.Student">
+       <!--<constructor-arg name="name" value="Tom"/>-->
+       <!--<constructor-arg name="age" value="21"/>-->
+       <!--<constructor-arg name="school" ref="school"/>-->
+
+        <constructor-arg index="0" value="Tom"/>
+        <constructor-arg index="1" value="21"/>
+        <constructor-arg index="2" ref="school"/>
+
+   </bean>
+</beans>
