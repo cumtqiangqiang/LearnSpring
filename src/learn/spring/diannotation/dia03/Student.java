@@ -1,9 +1,11 @@
-package learn.spring.diannotation.dia01;
+package learn.spring.diannotation.dia03;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * Created by fiona on 2020/3/20.
@@ -16,8 +18,11 @@ public class Student {
     private String name;
     @Value("23")
     private  int age;
-//    自动注入 通过bytype 方式
-    @Autowired
+
+    //通过JSR 标准，byname 方式注入
+//    @Resource(name = "mySchool")
+//    byType 方式
+    @Resource
     private School school;
 
 

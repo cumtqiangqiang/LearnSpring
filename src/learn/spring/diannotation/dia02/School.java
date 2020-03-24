@@ -1,4 +1,4 @@
-package learn.spring.diannotation.dia01;
+package learn.spring.diannotation.dia02;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

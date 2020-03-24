@@ -1,8 +1,8 @@
-package learn.spring.diannotation.dia01;
+package learn.spring.diannotation.dia02;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,8 +16,9 @@ public class Student {
     private String name;
     @Value("23")
     private  int age;
-//    自动注入 通过bytype 方式
+//    自动注入 通过byname 方式
     @Autowired
+    @Qualifier("mySchool")
     private School school;
 
 
