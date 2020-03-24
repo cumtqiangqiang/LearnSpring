@@ -10,17 +10,10 @@ import javax.annotation.Resource;
  */
 
 //@Scope(value = "prototype")
-@Component(value = "myStudent")
 public class Student {
-    @Value("Tom")
     private String name;
-    @Value("23")
     private  int age;
 
-    //通过JSR 标准，byname 方式注入
-//    @Resource(name = "mySchool")
-//    byType 方式
-    @Resource
     private School school;
 
 
