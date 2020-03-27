@@ -1,4 +1,4 @@
-package learn.spring.aop.aop01;
+package learn.spring.aop.aop05;
 
 /**
  * Created by fiona on 2020/3/11.
@@ -13,6 +13,6 @@ public class SomeServiceImpl  implements ISomeService {
     }
 
     public String doSecond() {
-        return "ABCDE";
+        return "abcde";
     }
 }

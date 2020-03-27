@@ -1,4 +1,4 @@
-package learn.spring.aop.aop01;
+package learn.spring.aop.aop04;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -9,18 +9,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class App {
     @Test
-    public void  Test(){
+    public void  Test() {
 
-        String resource = "learn/spring/aop/aop01/applicationContext.xml";
+        String resource = "learn/spring/aop/aop04/applicationContext.xml";
         ApplicationContext ac = new ClassPathXmlApplicationContext(resource);
         ISomeService sc1 = (ISomeService) ac.getBean("serviceProxy");
-        sc1.doSomething();
-
-        System.out.println("============");
-
-        String a =  sc1.doSecond();
-
-        System.out.println(a);
+        try {
+            sc1.login("qiang1","111");
+        } catch (UserException e) {
+            e.printStackTrace();
+        }
 
 
 

@@ -1,4 +1,4 @@
-package learn.spring.aop.aop01;
+package learn.spring.aop.aop06;
 
 /**
  * Created by fiona on 2020/3/11.

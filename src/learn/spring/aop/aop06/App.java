@@ -1,4 +1,4 @@
-package learn.spring.aop.aop01;
+package learn.spring.aop.aop06;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -11,16 +11,16 @@ public class App {
     @Test
     public void  Test(){
 
-        String resource = "learn/spring/aop/aop01/applicationContext.xml";
+        String resource = "learn/spring/aop/aop06/applicationContext.xml";
         ApplicationContext ac = new ClassPathXmlApplicationContext(resource);
+//        有接口的话是JDK 的proxy ，没有借口的话是CGLIB
         ISomeService sc1 = (ISomeService) ac.getBean("serviceProxy");
         sc1.doSomething();
 
         System.out.println("============");
 
-        String a =  sc1.doSecond();
+        sc1.doSecond();
 
-        System.out.println(a);
 
 
 

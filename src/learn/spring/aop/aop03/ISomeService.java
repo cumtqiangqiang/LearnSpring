@@ -1,7 +1,7 @@
-package learn.spring.aop.aop01;
+package learn.spring.aop.aop03;
 
 public interface ISomeService {
     public void doSomething();
 
-    public String doSecond();
+    public String doSecong();
 }

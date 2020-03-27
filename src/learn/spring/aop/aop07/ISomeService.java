@@ -1,4 +1,4 @@
-package learn.spring.aop.aop01;
+package learn.spring.aop.aop07;
 
 public interface ISomeService {
     public void doSomething();

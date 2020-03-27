@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--注册目标对象-->
+    <bean id = "myService" class="learn.spring.aop.aop08.SomeServiceImpl"  scope="prototype"/>
+    <!--注册通知-->
+    <bean id="myMethodBeforeAdvice"  class="learn.spring.aop.aop08.MyMethodBeforeAdvice" />
+
+    <bean id = "myAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor" >
+        <!--<property name="mappedNames" value="doSecond,doThrid" />-->
+        <property name="advice" ref="myMethodBeforeAdvice" />
+        <!--使用通配符 匹配方法  匹配简单方法名-->
+        <property name="mappedNames" value="*S*" />
+
+
+    </bean>
+
+    <bean id="serviceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="targetName" value="myService" />
+        <!--<property name="targetClass" ref="myService"/>-->
+        <property name="interceptorNames" value="myAdvisor"/>
+
+
+    </bean>
+
+
+
+
+</beans>

@@ -4,15 +4,14 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 <!--注册目标对象-->
-    <bean id = "myService" class="learn.spring.aop.aop01.SomeServiceImpl"  scope="prototype"/>
+    <bean id = "myService" class="learn.spring.aop.aop03.SomeServiceImpl"  scope="prototype"/>
     <!--注册通知-->
-    <bean id="myMethodBeforeAdvice"  class="learn.spring.aop.aop01.MyMethodBeforeAdvice" />
-
+    <bean id="myExAdvice"  class="learn.spring.aop.aop03.myExceptionAdvice" />
     <bean id="serviceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="targetName" value="myService" />
         <!--<property name="targetClass" ref="myService"/>-->
-        <property name="interceptorNames" value="myMethodBeforeAdvice"/>
-
+        <!--<property name="interceptorNames" value="myMethodBeforeAdvice"/>-->
+        <property name="interceptorNames" value="myExAdvice" />
 
     </bean>
 
