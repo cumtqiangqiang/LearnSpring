@@ -15,6 +15,7 @@ public class App {
         ApplicationContext ac = new ClassPathXmlApplicationContext(resource);
         ISomeService sc1 = (SomeServiceImpl) ac.getBean("myService");
         sc1.doSomething();
+        System.out.println("test");
 
 
 
