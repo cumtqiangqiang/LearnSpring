@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--注册目标对象 -->
+    <bean id = "myService" class="learn.spring.aop.aop11.SomeServiceImpl"  scope="prototype"/>
+    <bean id = "myService2" class="learn.spring.aop.aop11.SomeServiceImpl"  scope="prototype"/>
+    <!--注册通知-->
+    <bean id="myMethodBeforeAdvice"  class="learn.spring.aop.aop11.MyMethodBeforeAdvice" />
+
+    <!--切面-->
+    <bean id = "myAdvisor" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor" >
+        <!--<property name="mappedNames" value="doSecond,doThrid" />-->
+        <property name="advice" ref="myMethodBeforeAdvice" />
+        <!--使用通配符 匹配方法  匹配简单方法名-->
+        <property name="mappedNames" value="doSecond" />
+    </bean>
+
+    <bean id = "myAdvisor2" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor" >
+        <!--<property name="mappedNames" value="doSecond,doThrid" />-->
+        <property name="advice" ref="myMethodBeforeAdvice" />
+        <!--使用通配符 匹配方法  匹配简单方法名-->
+        <property name="mappedNames" value="doThrid" />
+    </bean>
+
+    <!--注册自动代理生成器-(原理bean后处理器)->-->
+    <!--
+     自动代理生成器缺陷
+     1)不能选择目标对象
+     2)不能选择切面类型 切面只能是advisor
+     3)不能选择具体的advisor,advisor 均将被作为切面织入目标方法
+    -->
+    <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />-->
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator" >
+        <property name="beanNames" value="myService" />
+        <property name="interceptorNames" value="myAdvisor" />
+
+    </bean>
+
+
+
+
+</beans>
