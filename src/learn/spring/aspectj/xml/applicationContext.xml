@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+<!--注册切面-->
+    <bean id="myAspect" class="learn.spring.aspectj.xml.MyAspect" />
+   <!--注册目标对象-->
+    <bean id = "someService" class="learn.spring.aspectj.xml.SomeServiceImpl"/>
+
+    <aop:config>
+        <aop:pointcut id="doFirstPointCut" expression="execution(* *..ISomeService.doFirst(..))"/>
+        <aop:pointcut id="doSecondPointCut" expression="execution(* *..ISomeService.doSecond(..))"/>
+        <aop:pointcut id="doThridPointCut" expression="execution(* *..ISomeService.doThrid(..))"/>
+
+        <aop:aspect  ref="myAspect" >
+            <aop:before method="myBefore" pointcut-ref="doFirstPointCut"/>
+            <aop:before method="myBefore(org.aspectj.lang.JoinPoint)" pointcut-ref="doFirstPointCut"/>
+
+            <aop:after-returning method="myAfterReturning(java.lang.Object)" pointcut-ref="doSecondPointCut" returning="result" />
+            <aop:around method="myAround" pointcut-ref="doSecondPointCut"/>
+            <aop:after-throwing method="myThrowing(java.lang.Exception)" pointcut-ref="doThridPointCut" throwing="ex" />
+            <aop:after method="myAfter" pointcut-ref="doThridPointCut" />
+        </aop:aspect>
+    </aop:config>
+</beans>
+
