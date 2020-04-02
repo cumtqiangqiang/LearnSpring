@@ -10,6 +10,11 @@ public class Student {
     public Student() {
     }
 
+    public Student(int age, String name) {
+        this.age = age;
+        this.name = name;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -34,5 +39,10 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Student:"+id + " "+ age + " " + name;
     }
 }

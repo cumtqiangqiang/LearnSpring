@@ -1,8 +1,7 @@
-package learn.spring.jdbc;
+package learn.spring.jexample;
 
-import learn.spring.aspectj.xml.ISomeService;
-import learn.spring.jdbc.beans.Student;
-import learn.spring.jdbc.service.IStudentService;
+import learn.spring.jexample.beans.Student;
+import learn.spring.jexample.service.IStudentService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
