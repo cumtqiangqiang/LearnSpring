@@ -1,13 +1,11 @@
-package learn.spring.jexample;
+package learn.spring.jexam.annotation;
 
-import learn.spring.jexample.service.BuyStockException;
-import learn.spring.jexample.service.IBuyStockService;
+import learn.spring.jexam.annotation.service.BuyStockException;
+import learn.spring.jexam.annotation.service.IBuyStockService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.List;
 
 /**
  * Created by fiona on 2020/4/1.
@@ -16,9 +14,9 @@ public class App {
     IBuyStockService sc1;
     @Before
     public void test(){
-        String resource = "learn/spring/jexample/applicationContext.xml";
+        String resource = "learn/spring/jexam/annotation/applicationContext.xml";
         ApplicationContext ac = new ClassPathXmlApplicationContext(resource);
-        sc1 = (IBuyStockService)ac.getBean("serviceProxy");
+        sc1 = (IBuyStockService)ac.getBean("buyStockService");
     }
 
     @Test

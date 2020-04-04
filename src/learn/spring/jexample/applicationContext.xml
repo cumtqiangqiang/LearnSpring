@@ -8,29 +8,6 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-    <!--spring 内置连接池-->
-    <!--<bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >-->
-        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
-        <!--<property name="url" value="jdbc:mysql://localhost:3306/test" />-->
-        <!--<property name="username" value="root" />-->
-        <!--<property name="password" value="123456" />-->
-    <!--</bean>-->
-
-    <!--DBCP连接池-->
-    <!--<bean id="myDataSource" class="org.apache.commons.dbcp2.BasicDataSource" >-->
-        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
-        <!--<property name="url" value="jdbc:mysql://localhost:3306/test" />-->
-        <!--<property name="username" value="root" />-->
-        <!--<property name="password" value="123456" />-->
-    <!--</bean>-->
-
-    <!--c3p0连接池-->
-    <!--<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >-->
-        <!--<property name="driverClass" value="com.mysql.jdbc.Driver" />-->
-        <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test" />-->
-        <!--<property name="user" value="root" />-->
-        <!--<property name="password" value="123456" />-->
-    <!--</bean>-->
 
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
         <property name="driverClass" value="${jdbc.driver}" />
@@ -39,28 +16,42 @@
         <property name="password" value="${jdbc.password}" />
     </bean>
 
-    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" >-->
-        <!--<property  name="location" value="classpath:jdbc.properties"/>-->
-    <!--</bean>-->
 
-    <context:property-placeholder location="classpath:learn/spring/jdbc/jdbc.properties" />
-<!--===============================================================-->
-    <!--<bean id="myJdbcTemplate"  class="org.springframework.jdbc.core.JdbcTemplate" >-->
-    <!--<property name="dataSource" ref="myDataSource"/>-->
-<!--</bean>-->
-    <!--<bean id = "myStuDao"  class="learn.spring.jdbc.dao.StudentDaoImpl">-->
-        <!--<property name="jdbcTemplate" ref="myJdbcTemplate"/>-->
-    <!--</bean>-->
 
-    <!--===============================================================-->
+    <context:property-placeholder location="classpath:learn/spring/jexample/jdbc.properties" />
     <!--没有配制模版 自己创建-->
-    <bean id = "myStuDao"  class="learn.spring.jdbc.dao.StudentDaoImpl">
+    <bean id = "acountDao"  class="learn.spring.jexample.dao.AcountDao">
         <property name="dataSource" ref="myDataSource"/>
+    </bean>
+    <bean id="stockDao" class="learn.spring.jexample.dao.StockDao" >
+        <property name="dataSource" ref="myDataSource" />
     </bean>
 
 
-    <bean id ="studentService"  class="learn.spring.jdbc.service.StudentServiceImpl" >
-        <property name="studentDao" ref="myStuDao" />
+    <bean id ="buyStockService"  class="learn.spring.jexample.service.BuyStockServiceImpl" >
+        <property name="acountDao" ref="acountDao" />
+        <property name="stockDao"  ref="stockDao" />
+    </bean>
+
+
+    <bean id="myTansationManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+        <property name="dataSource" ref="myDataSource" />
+    </bean>
+
+    <!--这种方式多个目标对象 臃肿-->
+    <bean id="serviceProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="target" ref="buyStockService" />
+        <property name="transactionManager" ref="myTansationManager" />
+        <property name="transactionAttributes" >
+            <props>
+                <prop key="open*">ISOLATION_DEFAULT,PROPAGATION_REQUIRED</prop>
+                <!---BuyStockException 发生指定异常回滚-->
+                <!--+BuyStockException 发生异常提交 这时的异常通常是runtimeException-->
+                <!--spring 里runtime异常自动回滚-->
+                <prop key="buyStock">ISOLATION_DEFAULT,PROPAGATION_REQUIRED,-BuyStockException</prop>
+            </props>
+        </property>
+
     </bean>
 </beans>
 
