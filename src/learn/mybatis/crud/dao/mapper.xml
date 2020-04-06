@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间用来区分执行的sql语句-->
+<mapper namespace="test">
+   <!--<insert id="insertStu" parameterType="learn.mybatis.primary.beans.Student" >-->
+    <!--parameterType 可以不写-->
+    <insert id="insertStu" parameterType="Student" >
+    insert into  student(name,age,score) values (#{name},#{age},#{score})
+   </insert>
+
+
+    <insert id="insertStudentCacheId" >
+        insert into  student(name,age,score) values (#{name},#{age},#{score})
+--  order mysql 数据库是先插入数据 在生成id
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT @@IDENTITY
+        </selectKey>
+    </insert>
+
+    <delete id="deleteStudentById" >
+        DELETE  FROM  student WHERE id = #{id} <!--#{id} 是占位符，里面填什么都行-->
+    </delete>
+
+    <update id="" >
+
+    </update>
+</mapper>
