@@ -1,4 +1,4 @@
-package learn.mybatis.crud.beans;
+package learn.mybatis.crud3.mapper.dynamicProxy.beans;
 
 /**
  * Created by fiona on 2020/4/5.

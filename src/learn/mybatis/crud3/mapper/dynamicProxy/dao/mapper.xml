@@ -3,10 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--命名空间用来区分执行的sql语句-->
-<mapper namespace="test">
+<mapper namespace="learn.mybatis.crud3.mapper.dynamicProxy.dao.IStudentDao">
    <!--<insert id="insertStu" parameterType="learn.mybatis.primary.beans.Student" >-->
     <!--parameterType 可以不写-->
-    <insert id="insertStu" parameterType="Student" >
+    <insert id="insertStudent" parameterType="Student" >
     insert into  student(name,age,score) values (#{name},#{age},#{score})
    </insert>
 
@@ -39,4 +39,22 @@
         <!--select id,name,age,score from student where name  like '%${value}%'-->
 
     </select>
+
+    <select id="selectStudentsByCondition" resultType="Student" >
+        select id,name,age,score from student where name  like '%' #{nameCondi} '%' and
+        age > #{ageCondi} and score > #{stu.score}
+    </select>
+    <select id="selectStudentsByConditionIndex" resultType="Student" >
+        select id,name,age,score from student where name  like '%' #{0} '%' and
+        age > #{1}
+    </select>
+    <!--
+     #{}中可以放什么内容
+     1)参数对象的属性
+     2)随意内容 此时的#{}为占位符
+     3)参数为map 的key值
+     4)参数为map时 若key 对应的的值为对象，则可将该对象的属性放入#{stu.score}
+     5)参数的索引号
+
+    -->
 </mapper>

@@ -27,7 +27,8 @@
         update student set name = #{name},age = #{age},score=#{score} where id = #{id}
     </update>
     <select id="selectAllStudents" resultType="Student">
-        select id,name,age,score from student
+        <!--当表字段和bean的属性不一致时 可以通过字段重命名解决-->
+        select tid id,tname name,tage age ,score from student
     </select>
 
     <select id="selectStudentById" resultType="Student">

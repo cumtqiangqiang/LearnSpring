@@ -4,6 +4,8 @@ import learn.mybatis.crud.beans.Student;
 import learn.mybatis.crud.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,7 +68,7 @@ public class StudentDaoImpl implements IStudentDao {
         try {
 
             SqlSession sqlSession = MybatisUtils.getSqlSession();
-            sqlSession.update("updateStudent");
+            sqlSession.update("updateStudent",student);
 
             sqlSession.commit();
 
@@ -78,18 +80,67 @@ public class StudentDaoImpl implements IStudentDao {
     }
 
     public List<Student> selectAllStudents() {
-        return null;
+        List<Student> students = new ArrayList<Student>();
+        try {
+
+            SqlSession sqlSession = MybatisUtils.getSqlSession();
+            students =  sqlSession.selectList("selectAllStudents");
+
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+
+        return students;
     }
 
     public Map<String, Object> selectAllStudentsMap() {
-        return null;
+       Map<String,Object> map = new HashMap<String, Object>();
+        try {
+
+            SqlSession sqlSession = MybatisUtils.getSqlSession();
+//            第二个参数是bean的属性.
+            map =  sqlSession.selectMap("selectAllStudents","name");
+
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+        return map;
     }
 
     public Student selectStudentById(int id) {
-        return null;
+        Student student;
+        try {
+
+            SqlSession sqlSession = MybatisUtils.getSqlSession();
+            student =  sqlSession.selectOne("selectStudentById",id);
+
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+
+        return student;
     }
 
     public List<Student> selectStudentsByName(String name) {
-        return null;
+        List<Student> students = new ArrayList<Student>();
+        try {
+
+            SqlSession sqlSession = MybatisUtils.getSqlSession();
+            students =  sqlSession.selectList("selectStudentsByName",name);
+
+
+        } finally {
+            if (sqlSession != null) {
+                sqlSession.close();
+            }
+        }
+
+        return students;
     }
 }

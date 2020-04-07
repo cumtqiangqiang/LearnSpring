@@ -1,7 +1,11 @@
-package learn.mybatis.crud.beans;
+package learn.mybatis.crud2.beans;
 
 /**
  * Created by fiona on 2020/4/5.
+ */
+
+/**
+ * 解决表的字段和bean的属性不一致问题
  */
 public class Student {
     private Integer id;
