@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--动态sql sql的筛选条件的个数不是固定的-->
+<mapper namespace="learn.mybatis.crud4.dynamicsql.dao.IStudentDao">
+
+    <!--1=1 会降低效率 数据良多的话-->
+    <select id="selectStudentsByConditionIf" resultType="Student" >
+        select id,name,age,score from student where 1 = 1
+        <if test="name != null and name != ''">
+            and name like '%' #{name} '%'
+        </if>
+        <if test="age > 0" >
+            and age > #{age}
+        </if>
+    </select>
+
+    <select id="selectStudentsByConditionWhere" resultType="Student" >
+        select id,name,age,score from student
+       <!--wehre 里的条件 and 可以加上 但是最好不要去掉 尤其是第二个-->
+        <where>
+            <if test="name != null and name != ''">
+                and name like '%' #{name} '%'
+            </if>
+            <if test="age > 0" >
+                and age > #{age}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectStudentsByConditionChoose" resultType="Student" >
+        select id,name,age,score from student
+
+        <where>
+            <choose>
+                <!--choose 标签相当于 switch case 匹配其中的一个执行-->
+                <when test="name != null and name != ''">
+                    and name like '%' #{name} '%'
+                </when>
+                <when test="age > 0" >
+                    and age > #{age}
+                </when>
+                <otherwise>
+                    1 = 2
+                </otherwise>
+
+            </choose>
+        </where>
+    </select>
+
+    <select id="selectStudentsByConditionForeach" resultType="Student" >
+        select id,name,age,score from student
+        <!--数组的别名array-->
+        <if test="array.length > 0">
+            where id in
+            <foreach collection="array" item="myid" open="(" close=")" separator=",">
+                #{myid}
+            </foreach>
+        </if>
+    </select>
+    <select id="selectStudentsByConditionForeach2" resultType="Student" >
+        select id,name,age,score from student
+        <!--list-->
+        <if test="list.size > 0">
+            where id in
+            <foreach collection="list" item="myid" open="(" close=")" separator=",">
+                #{myid}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="selectStudentsByConditionForeach3" resultType="Student" >
+        <!--select id,name,age,score from student-->
+        select <include refid="sqlSegment" /> from student
+        <!--list-->
+        <if test="list.size > 0">
+            where id in
+            <foreach collection="list" item="stu" open="(" close=")" separator=",">
+                #{stu.id}
+            </foreach>
+        </if>
+    </select>
+
+    <!--sql 片段-->
+    <sql id="sqlSegment">
+        id,name,age,score
+    </sql>
+
+</mapper>
