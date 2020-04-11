@@ -3,19 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
+<!--查询当前的以及其全部子栏目-->
 <configuration>
     <properties resource="jdbc.properties" />
-    <!--延迟加载 先查主查询  然后再查副查询-->
-    <settings>
-        <!--延迟加载总开关 否则是一下全查出来-->
-        <setting name="lazyLoadingEnabled" value="true"/>
-        <!--侵入式 延迟加载，当主对象使用时 会查询子查询-->
-        <!--当为false时 是深度延迟  只有子属性使用时 子查询才会查询-->
-        <setting name="aggressiveLazyLoading" value="true"/>
-    </settings>
     <typeAliases>
         <!--将包下的类型名作为别名-->
-        <package name="learn.mybatis.crud5.one2many2.beans" />
+        <package name="learn.mybatis.crud7.beans" />
     </typeAliases>
 
     <environments default="mysqlEM">
@@ -31,6 +24,6 @@
     </environments>
 
     <mappers>
-        <mapper resource="learn/mybatis/crud5/one2many2/dao/mapper.xml" />
+        <mapper resource="learn/mybatis/crud7/dao/mapper.xml" />
     </mappers>
 </configuration>

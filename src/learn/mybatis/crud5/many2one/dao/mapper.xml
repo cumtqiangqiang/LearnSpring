@@ -2,28 +2,20 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!--动态sql sql的筛选条件的个数不是固定的-->
-<mapper namespace="learn.mybatis.crud5.one2many2.dao.ICountryDao">
 
-    <!--这种方式使用较多 可以延迟加载-->
-  <select id="selectMinisterByCountry" resultType="Minister">
-      select mid,mname from minister where countryId = #{id}
-  </select>
-   <resultMap id="countryMapper" type="Country">
-       <id column="cid" property="cid"/>
-       <result column="cname" property="cname"/>
-       <!--通过 cid 进行关联-->
-       <collection property="ministers"
-                   ofType="Minister"
-                   select="selectMinisterByCountry"
-                   column="cid"
+<mapper namespace="learn.mybatis.crud5.many2one.dao.IMinisterDao">
 
-       />
+    <resultMap id="countryMapper" type="Minister">
+        <id column="mid" property="mid" />
+        <result column="mname" property="mname"/>
+        <association property="country" javaType="Country">
+            <id column="cid" property="cid"/>
+            <result column="cname" property="cname"/>
+        </association>
+    </resultMap>
 
-   </resultMap>
-
-    <select id="selectCountryById"  resultMap="countryMapper">
-       select cid,cname from country where  cid = #{cid}
+    <select id="selectMinisterByid"  resultMap="countryMapper">
+       select mid,mname,cid,cname from minister,country where  mid = #{mid}
 
    </select>
 

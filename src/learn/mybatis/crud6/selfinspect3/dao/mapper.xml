@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--查询他的所有父节点 通过id-->
+<mapper namespace="learn.mybatis.crud6.selfinspect3.dao.INewsLabelDao">
+
+
+    <resultMap id="newsLabelMapper" type="NewsLabel" >
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <association property="parentLabel"
+                     javaType="NewsLabel"
+                     column="pid"
+                     select="selectParentById"
+
+        />
+
+    </resultMap>
+
+    <select id="selectParentById"  resultMap="newsLabelMapper">
+       select id,name ,pid from newslabel where  id = #{id}
+
+   </select>
+
+</mapper>

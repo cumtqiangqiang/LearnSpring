@@ -1,4 +1,4 @@
-package learn.mybatis.crud5.many2one.utils;
+package learn.mybatis.crud6.selfinspect2.utils;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -16,7 +16,7 @@ public class MybatisUtils {
     public  static SqlSession getSqlSession(){
         InputStream inputStream = null;
         try {
-            inputStream = Resources.getResourceAsStream("learn/mybatis/crud5/many2one/mybatis.xml");
+            inputStream = Resources.getResourceAsStream("learn/mybatis/crud6/selfinspect2/mybatis.xml");
             if (factory == null){
                 factory = new SqlSessionFactoryBuilder().build(inputStream);
             }

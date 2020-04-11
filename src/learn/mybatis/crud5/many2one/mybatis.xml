@@ -7,7 +7,7 @@
     <properties resource="jdbc.properties" />
     <typeAliases>
         <!--将包下的类型名作为别名-->
-        <package name="learn.mybatis.crud5.one2many2.beans" />
+        <package name="learn.mybatis.crud5.many2one.beans" />
     </typeAliases>
 
     <environments default="mysqlEM">
@@ -23,6 +23,6 @@
     </environments>
 
     <mappers>
-        <mapper resource="learn/mybatis/crud5/one2many2/dao/mapper.xml" />
+        <mapper resource="learn/mybatis/crud5/many2one/dao/mapper.xml" />
     </mappers>
 </configuration>

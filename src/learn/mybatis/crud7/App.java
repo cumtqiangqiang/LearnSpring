@@ -1,10 +1,9 @@
-package learn.mybatis.crud5.many2one;
+package learn.mybatis.crud7;
 
 
-import learn.mybatis.crud5.many2one.beans.Country;
-import learn.mybatis.crud5.many2one.beans.Minister;
-import learn.mybatis.crud5.many2one.dao.IMinisterDao;
-import learn.mybatis.crud5.many2one.utils.MybatisUtils;
+import learn.mybatis.crud7.beans.Student;
+import learn.mybatis.crud7.dao.IStudentDao;
+import learn.mybatis.crud7.utils.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.After;
 import org.junit.Before;
@@ -16,12 +15,12 @@ import org.junit.Test;
  */
 public class App {
 
-    private IMinisterDao countryDao;
+    private IStudentDao studentDao;
     private SqlSession sqlSession;
     @Before
     public void before(){
         sqlSession = MybatisUtils.getSqlSession();
-        countryDao = sqlSession.getMapper(IMinisterDao.class);
+        studentDao = sqlSession.getMapper(IStudentDao.class);
 
 
     }
@@ -37,9 +36,8 @@ public class App {
     @Test
     public void test1(){
 
-        Minister minister =   countryDao.selectMinisterByid(2);
-        System.out.println(minister);
-
+        Student student =   studentDao.selectStudentById(1);
+        System.out.println(student);
 
     }
 
